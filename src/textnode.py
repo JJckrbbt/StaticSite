@@ -27,4 +27,4 @@ class TextNode:
 
 node1 = TextNode("Node1", "bold", "google.com")
 
-print(node1)
+# print(node1)
