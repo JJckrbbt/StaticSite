@@ -1,5 +1,6 @@
 # textnode.py
 
+
 text_type_text = "text"
 text_type_bold = "bold"
 text_type_italic = "italic"
@@ -25,6 +26,7 @@ class TextNode:
         return f"TextNode({self.text}, {self.text_type}, {self.url})"
 
 
-node1 = TextNode("Node1", "bold", "google.com")
+# node1 = TextNode("Node1", None, "google.com")
 
+# print(node1)
 # print(node1)

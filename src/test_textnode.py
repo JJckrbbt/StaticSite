@@ -12,6 +12,8 @@ from textnode import (
     text_type_link,
 )
 
+from htmlnode import LeafNode
+
 
 class TestTextNode(unittest.TestCase):
     def test_eq(self):

@@ -23,16 +23,26 @@ class HTMLNode:
     def __repr__(self):
         return f"HTMLNode({self.tag}, {self.value}, children: {self.children}, {self.props})"
 
+    def __eq__(self, other):
+        if not isinstance(other, HTMLNode):
+            return False
+        return (
+            self.tag == other.tag
+            and self.value == other.value
+            and self.children == other.children
+            and self.props == other.props
+        )
 
-node1 = HTMLNode(
-    "p",
-    "this is a node",
-    None,
-    {
-        "href": "https://www.google.com",
-        "target": "_blank",
-    },
-)
+
+# node1 = HTMLNode(
+#    "p",
+#    "this is a node",
+#    None,
+#    {
+#        "href": "https://www.google.com",
+#        "target": "_blank",
+#    },
+# )
 
 # print(node1)
 
@@ -92,16 +102,16 @@ class ParentNode(HTMLNode):
         return f"ParentNode({self.tag}, children: {self.children}, {self.props})"
 
 
-node = ParentNode(
-    "p",
-    [
-        LeafNode("b", "Bold Text"),
-        LeafNode(None, "Normal Text"),
-        LeafNode("i", "italic text"),
-        LeafNode(None, "Normal Text"),
-    ],
-)
+# node = ParentNode(
+#    "p",
+#    [
+#        LeafNode("b", "Bold Text"),
+#        LeafNode(None, "Normal Text"),
+#        LeafNode("i", "italic text"),
+#        LeafNode(None, "Normal Text"),
+#    ],
+# )
 
-print(f"tag: {node.tag} | children: {node.children}")
+# print(f"tag: {node.tag} | children: {node.children}")
 
-node.to_html()
+# node.to_html()
