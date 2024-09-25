@@ -101,9 +101,25 @@ node = TextNode(
     text_type_text,
 )
 
-print(split_nodes_image([node1]))
 
-print(split_nodes_link([node]))
+def text_to_textnodes(text):
+    text = [TextNode(text, text_type_text)]
+    text = split_nodes_link(text)
+    text = split_nodes_image(text)
+    text = split_nodes_delimiter(text, "**", text_type_bold)
+    text = split_nodes_delimiter(text, "*", text_type_italic)
+    text = split_nodes_delimiter(text, "`", text_type_code)
+    return text
+
+
+test_text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+
+print(text_to_textnodes(test_text))
+
+
+# print(split_nodes_image([node1]))
+
+# print(split_nodes_link([node]))
 
 
 # new_nodes = split_nodes_link([node])

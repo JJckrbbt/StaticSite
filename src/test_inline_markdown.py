@@ -3,6 +3,8 @@ from inline_markdown import (
     split_nodes_delimiter,
     extract_markdown_images,
     extract_markdown_links,
+    split_nodes_image,
+    split_nodes_link,
 )
 
 from textnode import (
@@ -11,6 +13,8 @@ from textnode import (
     text_type_bold,
     text_type_italic,
     text_type_code,
+    text_type_link,
+    text_type_image,
 )
 
 
@@ -82,7 +86,7 @@ class TestInlineMarkdown(unittest.TestCase):
             new_nodes,
         )
 
-    def test_delim_code(self):
+    def test_deljjjim_code(self):
         node = TextNode("This is text with a `code block` word", text_type_text)
         new_nodes = split_nodes_delimiter([node], "`", text_type_code)
         self.assertListEqual(
@@ -112,6 +116,40 @@ class TestInlineMarkdown(unittest.TestCase):
                 ("to boot dev", "https://www.boot.dev"),
                 ("to youtube", "https://www.youtube.com/@bootdotdev"),
             ],
+        )
+
+    def test_split_nodes_link(self):
+        node = TextNode(
+            "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
+            text_type_text,
+        )
+        new_nodes = split_nodes_link([node])
+        self.assertListEqual(
+            [
+                TextNode("This is text with a link ", text_type_text),
+                TextNode("to boot dev", text_type_link, "https://www.boot.dev"),
+                TextNode(" and ", text_type_text),
+                TextNode(
+                    "to youtube", text_type_link, "https://www.youtube.com/@bootdotdev"
+                ),
+            ],
+            new_nodes,
+        )
+
+    def test_split_image(self):
+        node = TextNode(
+            "This is text with a ![image](https://image.com/pic.gif) and ![kitty](https://cat.gov/zazzy.gif)",
+            text_type_text,
+        )
+        new_nodes = split_nodes_image([node])
+        self.assertListEqual(
+            [
+                TextNode("This is text with a ", text_type_text),
+                TextNode("image", text_type_image, "https://image.com/pic.gif"),
+                TextNode(" and ", text_type_text),
+                TextNode("kitty", text_type_image, "https://cat.gov/zazzy.gif"),
+            ],
+            new_nodes,
         )
 
 
