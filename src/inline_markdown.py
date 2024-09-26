@@ -47,6 +47,9 @@ def extract_markdown_links(text):
 def split_nodes_image(old_nodes):
     new_nodes = []
     for old_node in old_nodes:
+        if old_node.text_type != text_type_text:
+            new_nodes.append(old_node)
+            continue
         original_text = old_node.text
         while original_text:
             images = extract_markdown_images(original_text)
@@ -70,6 +73,9 @@ def split_nodes_image(old_nodes):
 def split_nodes_link(old_nodes):
     new_nodes = []
     for old_node in old_nodes:
+        if old_node.text_type != text_type_text:
+            new_nodes.append(old_node)
+            continue
         original_text = old_node.text
         while original_text:
             links = extract_markdown_links(original_text)
@@ -112,9 +118,9 @@ def text_to_textnodes(text):
     return text
 
 
-test_text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+# test_text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
 
-print(text_to_textnodes(test_text))
+# print(text_to_textnodes(test_text))
 
 
 # print(split_nodes_image([node1]))
