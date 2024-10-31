@@ -15,7 +15,7 @@ from textnode import (
 
 from htmlnode import LeafNode
 
-from text_to_html import text_node_to_html_node
+from text_to_html import text_node_to_html
 
 
 class TestTextToHTML(unittest.TestCase):
@@ -32,7 +32,7 @@ class TestTextToHTML(unittest.TestCase):
         #        print(f"Type of node2: {type(node2)}")
         #        print(f"Attributes of node2: {vars(node2)}")
 
-        self.assertEqual(text_node_to_html_node(node1), node2)
+        self.assertEqual(text_node_to_html(node1), node2)
 
     def test_bold_text_html_node(self):
         node1 = TextNode(
@@ -41,7 +41,7 @@ class TestTextToHTML(unittest.TestCase):
             None,
         )
         node2 = LeafNode("b", "Testing Bold Text", None)
-        self.assertEqual(text_node_to_html_node(node1), node2)
+        self.assertEqual(text_node_to_html(node1), node2)
 
     def test_italic_text_html_node(self):
         node1 = TextNode(
@@ -50,7 +50,7 @@ class TestTextToHTML(unittest.TestCase):
             None,
         )
         node2 = LeafNode("i", "Testing Italic Text", None)
-        self.assertEqual(text_node_to_html_node(node1), node2)
+        self.assertEqual(text_node_to_html(node1), node2)
 
     def test_code_text_html_node(self):
         node1 = TextNode(
@@ -59,7 +59,7 @@ class TestTextToHTML(unittest.TestCase):
             None,
         )
         node2 = LeafNode("code", "Testing Code Text", None)
-        self.assertEqual(text_node_to_html_node(node1), node2)
+        self.assertEqual(text_node_to_html(node1), node2)
 
     def test_link_text_html_node(self):
         node1 = TextNode(
@@ -68,7 +68,7 @@ class TestTextToHTML(unittest.TestCase):
             "gsa.gov",
         )
         node2 = LeafNode("a", "Testing Link Text", {"href": "gsa.gov"})
-        self.assertEqual(text_node_to_html_node(node1), node2)
+        self.assertEqual(text_node_to_html(node1), node2)
 
     def test_image_text_html_node(self):
         node1 = TextNode(
@@ -81,7 +81,7 @@ class TestTextToHTML(unittest.TestCase):
             None,
             {"src": "gsa.gov", "alt": "Testing Image Text"},
         )
-        self.assertEqual(text_node_to_html_node(node1), node2)
+        self.assertEqual(text_node_to_html(node1), node2)
 
 
 if __name__ == "__main__":

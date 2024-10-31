@@ -21,7 +21,7 @@ class HTMLNode:
             return props_html
 
     def __repr__(self):
-        return f"HTMLNode({self.tag}, {self.value}, children: {self.children}, {self.props})"
+        return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
 
     def __eq__(self, other):
         if not isinstance(other, HTMLNode):
@@ -54,6 +54,9 @@ class LeafNode(HTMLNode):
         super().__init__(tag, value, None, props)
 
     def to_html(self):
+        SELF_CLOSING_TAGS = ["img", "br", "hr", "input"]
+        if self.tag in SELF_CLOSING_TAGS:
+            return f"<{self.tag}{self.props_to_html()}/>"
         if self.value is None:
             raise ValueError("Invalid HTML: no value")
         if self.tag is None:
@@ -99,7 +102,17 @@ class ParentNode(HTMLNode):
     #        return leaves
 
     def __repr__(self):
-        return f"ParentNode({self.tag}, children: {self.children}, {self.props})"
+        return f"ParentNode({self.tag}, {self.children}, {self.props})"
+
+    def __eq__(self, other):
+        if not isinstance(other, ParentNode):
+            return False
+        return (
+            self.tag == other.tag
+            and self.value == other.value
+            and self.children == other.children
+            and self.props == other.props
+        )
 
 
 # node = ParentNode(
